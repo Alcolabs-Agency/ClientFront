@@ -1,8 +1,8 @@
-import React from "react";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home";
-import CreateProduct from "./pages/CreateProduct";
+import Home from "./page/Home";
+import CreateProduct from "./page/CreateProduct";
 
 function App() {
   return (
