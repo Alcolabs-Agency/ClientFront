@@ -1,22 +1,28 @@
 .containerGeneral {
-  width: 300px;
+  width: 250px;
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 20px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
-  margin: 50px;
+  margin: 20px;
   transition: all 1s;
+  font-size: 13px;
 }
 .containerGeneral:hover {
   transition: all 1s;
   transform: scale(1.05);
 }
-.containerGeneral img {
-  width: 300px;
-  height: 300px; /* El ancho se ajusta automáticamente */
-  object-fit: cover;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+.containerimg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  justify-content: end;
 }
 
 .containerGeneral h3 {
@@ -26,4 +32,22 @@
 .containerGeneral p {
   margin: 0;
   margin-bottom: 20px;
+}
+.containerGeneral button {
+  background-color: rgba(210, 211, 209, 0.637);
+  border: 0;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  transition: all 1s;
+  font-weight: 800;
+}
+
+.containerGeneral button:hover {
+  transition: all 1s;
+  transform: scale(1.1);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.518);
+  background-color: rgba(210, 211, 209, 0.719);
 }

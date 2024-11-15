@@ -5,7 +5,7 @@ import styles from "./ProductList.module.css";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
 
-export default function ProductList() {
+export default function ProductList({ addToBag }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (event) => {
@@ -22,7 +22,11 @@ export default function ProductList() {
       <div className={styles.ContainerList}>
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              addToBag={addToBag}
+            />
           ))
         ) : (
           <p>No se encontraron productos</p>
