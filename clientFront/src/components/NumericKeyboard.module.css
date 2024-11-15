@@ -1,0 +1,13 @@
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 150px;
+  margin: 20px auto;
+}
+
+.key {
+  padding: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
