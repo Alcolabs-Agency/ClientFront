@@ -53,7 +53,7 @@ export default function Inventario() {
               type="text"
               className={styles.searchInput}
               placeholder="Buscar..."
-              onBlur={() => setIsSearchVisible(false)} // Ocultar el input al perder el foco
+              onBlur={() => setIsSearchVisible(false)} 
             />
           ) : (
             <button className={styles.iconButton} onClick={toggleSearch}>
