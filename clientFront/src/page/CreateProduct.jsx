@@ -6,19 +6,12 @@ export default function CreateProduct() {
     <div className={styles.container}>
       
       <img src="/Frame 65.png" alt="Logo" className={styles.logo} />
-
-      
       <div className={styles.backButton}>
         <FaArrowLeft />
       </div>
-
-      
       <button className={styles.saveButton}>Guardar</button>
-
-      
       <div className={styles.mainContainer}>
         <div className={styles.gridContainer}>
-         
           <div className={styles.column1}>
             <h2 className={styles.sectionTitle}>Info.</h2>
             <div>
@@ -100,14 +93,21 @@ export default function CreateProduct() {
             </div>
 
             <h2 className={styles.sectionTitle}>Variantes</h2>
-            <div className={styles.variantItem}>
-              <input type="text" className={styles.input} placeholder="Colores" />
-              <button className={styles.addVariantButton}>Agregar más variantes</button>
-            </div>
-            <div className={styles.variantItem}>
-              <input type="text" className={styles.input} placeholder="Tamaño" />
-              <button className={styles.addVariantButton}>Agregar más variantes</button>
-            </div>
+<div className={styles.variantsContainer}>
+  <button className={styles.addIconButton}>
+    <span>+</span>
+  </button>
+  
+  <div className={styles.variantItem}>
+    <input type="text" className={styles.input} placeholder="Colores" />
+    <span className={styles.addVariantText}>Agregar más variantes</span>
+  </div>
+  
+  <div className={styles.variantItem}>
+    <input type="text" className={styles.input} placeholder="Tamaño" />
+    <span className={styles.addVariantText}>Agregar más variantes</span>
+  </div>
+</div>
           </div>
         </div>
       </div>
