@@ -5,6 +5,7 @@ import Home from "./page/Home";
 import CreateProduct from "./page/CreateProduct";
 import Inventario from "./page/Inventario";
 import EditVariant from "./page/EditVariant";
+import EditVariableTabs from "./page/EditVariableTabs";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/inventario" element={<Inventario />} />
         <Route path="/editVariant" element={<EditVariant />} />
+        <Route path="/EditVariableTabs" element={<EditVariableTabs />} />
       </Routes>
     </Router>
   );
