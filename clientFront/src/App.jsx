@@ -6,6 +6,7 @@ import CreateProduct from "./page/CreateProduct";
 import Inventario from "./page/Inventario";
 import EditVariant from "./page/EditVariant";
 import EditVariableTabs from "./page/EditVariableTabs";
+import PaymentOptions from "./page/PaymentOptions";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/inventario" element={<Inventario />} />
         <Route path="/editVariant" element={<EditVariant />} />
         <Route path="/EditVariableTabs" element={<EditVariableTabs />} />
+        <Route path="/PaymentOptions" element={<PaymentOptions />} />
       </Routes>
     </Router>
   );
