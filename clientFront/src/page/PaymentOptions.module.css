@@ -1,0 +1,155 @@
+
+.container {
+    width: 200%;
+    max-width: 400px;
+    margin-bottom: -10%;
+    background-color: #fcfcfc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  p {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 25px;
+  }
+  
+  label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  label input[type="radio"] {
+    margin-right: 8px;
+  }
+  
+  .icon {
+    height: 35px;
+    width: auto;
+    margin-right: 10px;
+  }
+
+    
+  
+
+  
+  .paymentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  .input {
+    width: 94%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+  
+  .coinbaseInfo, .cryptoOptions, .cashOnDeliveryInfo {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fffafa;
+    font-size: 0.875rem;
+  }
+  
+  .cryptoList {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Ajusta el ancho mínimo aquí */
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .cryptoList button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align:center;
+  }
+  .cryptoList button:hover {
+    background-color: #e2e0e0;
+  }
+   
+  .cryptoList .icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+  }
+  .cryptoList .price {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 4px; 
+  }
+
+  .showMoreButton {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 10px;
+    text-align: left;
+  }
+  
+  @media (max-width: 400px) {
+    .cryptoList {
+      grid-template-columns: repeat(2, 1fr); 
+    }
+  }
+
+  
+  .cryptoList button:hover {
+    background-color: #e2e0e0;
+  }
+
+  .showMoreButton {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 5px;
+    text-align: left;
+}
+  
+  .selectedContent {
+    margin-top: 20px;
+  }
+  
+  .price {
+    margin-left:10px;
+    font-size: 0.875rem;
+    color:#555;
+  }

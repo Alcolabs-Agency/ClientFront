@@ -1,0 +1,155 @@
+
+.container {
+  width: 95vw;
+  height: 100vh;
+  margin-bottom: -40px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction:column;
+  align-items:end;
+  justify-content:flex-start;
+
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px; 
+  position: relative;
+  width: 100%;
+}
+
+.logo {
+  position: absolute;
+  top: 10px; 
+  left: 24px;
+  height: 32px;
+  width: auto;
+}
+
+.backButton {
+  position: absolute;
+  top: 50px; 
+  left: 24px;
+  background: #fbbf24;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+}
+.inventoryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 80px; 
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4b5563;
+}
+
+
+.optionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select {
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #f0e68c;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background-color: #f0e68c;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+
+.createButton {
+  padding: 8px 16px;
+  background-color: #ffcc00;
+  margin-right: 20px;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.searchInput {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  width: 120px;
+}
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+}
+
+th {
+  background-color: #f3f3f3;
+  font-weight: bold;
+}
+
+.table th input[type="checkbox"], .table td input[type="checkbox"] {
+  cursor: pointer;
+}
+
+
+
+.editIcon {
+  cursor: pointer;
+  color: #4b5563;
+  font-size: 18px;
+  margin-left: 5px;
+  transition: color 0.3s ease;
+}
+
+.editIcon:hover {
+  color: #fbbf24; 
+}
