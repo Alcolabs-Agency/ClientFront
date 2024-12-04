@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.container div button {
+  background-color: rgba(210, 211, 209, 0.452);
+  border: 0;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  margin-right: 20px;
+  border-radius: 5px;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  transition: all 1s;
+  font-weight: 800;
+}
+
+.container div button:hover {
+  background-color: rgba(191, 194, 188, 0.687);
+  transition: all 1s;
+}
+.inputHidden {
+  display: none;
+  opacity: 0;
+  transform: scaleX(0); /* Inicia con el input comprimido en el eje X */
+  transition: opacity 2s ease, transform 2s ease; /* Define la transición */
+}
+
+.inputVisible {
+  display: block;
+  opacity: 1; /* Cuando el input es visible, tiene opacidad completa */
+  transform: scaleX(1); /* Escala el input a su tamaño normal */
+  transition: opacity 2s ease, transform 2s ease; /* Mantiene la transición suave */
+}
+
+.containerButtons {
+  display: flex;
+}
+
+.container div input {
+  background-color: rgba(255, 0, 0, 0);
+  border: 0;
+  border-bottom: solid rgba(0, 0, 0, 0.139) 1px;
+  text-align: center;
+  outline: none;
+}

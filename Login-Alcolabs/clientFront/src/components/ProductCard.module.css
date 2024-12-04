@@ -1,0 +1,29 @@
+.containerGeneral {
+  width: 300px;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  transition: all 1s;
+}
+.containerGeneral:hover {
+  transition: all 1s;
+  transform: scale(1.05);
+}
+.containerGeneral img {
+  width: 300px;
+  height: 300px; /* El ancho se ajusta automáticamente */
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.containerGeneral h3 {
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+.containerGeneral p {
+  margin: 0;
+  margin-bottom: 20px;
+}
