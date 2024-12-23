@@ -1,5 +1,7 @@
 import styles from "./SearchBar.module.css";
 import React, { useState } from "react";
+import "@fortawesome/fontawesome-free/css/all.css";
+
 export default function SearchBar({ value, onChange }) {
   const [isInputVisible, setInputVisible] = useState(false);
 
@@ -9,20 +11,20 @@ export default function SearchBar({ value, onChange }) {
 
   return (
     <div className={styles.container}>
-      <div>
-        <h3>Filtros</h3>
-      </div>
-      <div className={styles.containerButtons}>
-        <button>+</button>
-        <button onClick={handleToggleInput}>🔍</button>
-        <input
-          type="text"
-          placeholder="Buscar producto..."
-          value={value}
-          onChange={onChange}
-          className={isInputVisible ? styles.inputVisible : styles.inputHidden}
-        />
-      </div>
+      <p aria-label="Filter" className={styles.Iconofilter}>
+        <i className="fas fa-sliders-h"></i>
+      </p>
+      <input
+        type="text"
+        placeholder="Buscar producto..."
+        value={value}
+        onChange={onChange}
+        className={styles.inputs}
+      />
+      <button onClick={handleToggleInput}>
+        {" "}
+        <i className="fas fa-search"></i>
+      </button>
     </div>
   );
 }

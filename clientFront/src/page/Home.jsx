@@ -1,5 +1,7 @@
 import ProductList from "../components/ProductList";
 import ShoppingBag from "../components/ShoppingBag";
+import NavBar from "../components/NavBar";
+
 import { useState } from "react";
 import styles from "./Home.module.css";
 

@@ -15,12 +15,12 @@ export default function ShoppingBag({ bagItems, updateQuantity }) {
         <p></p>
       ) : (
         <div className={styles.products}>
-          <div className={styles.links}>
-            <Link to="/createProduct">
-              {" "}
-              <img src={hy} />
-            </Link>
+          <h4>Checkout</h4>
+          <div className={styles.especificacion}>
+            <p>Name - QTY</p>
+            <p>Price</p>
           </div>
+
           {bagItems.map((item, index) => (
             <div className={styles.items}>
               <div>
@@ -44,7 +44,7 @@ export default function ShoppingBag({ bagItems, updateQuantity }) {
                   >
                     +
                   </button>
-                  x $ <strong> {item.price}</strong> / unidades
+                  / unidades
                 </p>
                 <p className={styles.ps}>
                   {" "}
@@ -54,6 +54,7 @@ export default function ShoppingBag({ bagItems, updateQuantity }) {
                   </strong>{" "}
                 </p>
               </div>
+              <hr></hr>
             </div>
           ))}
           <div className={styles.totals}>
@@ -65,6 +66,12 @@ export default function ShoppingBag({ bagItems, updateQuantity }) {
               <h3>Total: </h3>
               <h3> $ {totalPrice.toFixed(2)} </h3>
             </div>
+          </div>
+          <div>
+            <Link className={styles.linksPay}>
+              {" "}
+              Pay $ ( {totalPrice.toFixed(2)}){" "}
+            </Link>
           </div>
         </div>
       )}

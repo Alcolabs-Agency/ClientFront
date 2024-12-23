@@ -4,6 +4,8 @@ import ProductCard from "./ProductCard";
 import styles from "./ProductList.module.css";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
+import Filters from "./filters";
+import { Link } from "react-router-dom";
 
 export default function ProductList({ addToBag }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +20,18 @@ export default function ProductList({ addToBag }) {
 
   return (
     <div className={styles.container}>
-      <SearchBar value={searchTerm} onChange={handleSearchChange} />
+      <div className={styles.Search}>
+        <Link to="createProduct" className={styles.LinkStyle}>
+          + ADD NEW ITEM
+        </Link>
+        <SearchBar value={searchTerm} onChange={handleSearchChange} />
+      </div>
+      <di>
+        <p>
+          Más de 20,000 productos para el hogar, diseñados para satisfacer todas
+          tus necesidades.
+        </p>
+      </di>
       <div className={styles.ContainerList}>
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (

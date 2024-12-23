@@ -1,49 +1,46 @@
 .container {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
   align-items: center;
 }
-.container div button {
-  background-color: rgba(210, 211, 209, 0.452);
+
+.container button {
+  background-color: rgba(6, 6, 6, 0.943);
+  color: aliceblue;
+  border-radius: 50px;
+
   border: 0;
   width: 35px;
   height: 35px;
   padding: 0;
-  margin-right: 20px;
-  border-radius: 5px;
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
   transition: all 1s;
+  margin-left: 10px;
+  margin-right: 5px;
   font-weight: 800;
 }
 
-.container div button:hover {
+.container button:hover {
   background-color: rgba(191, 194, 188, 0.687);
   transition: all 1s;
-}
-.inputHidden {
-  display: none;
-  opacity: 0;
-  transform: scaleX(0);
-  transition: opacity 2s ease, transform 2s ease;
-}
-
-.inputVisible {
-  display: block;
-  opacity: 1;
-  transform: scaleX(1);
-  transition: opacity 2s ease, transform 2s ease;
 }
 
 .containerButtons {
   display: flex;
+  align-items: center;
 }
 
-.container div input {
-  background-color: rgba(255, 0, 0, 0);
+.container input {
+  background-color: rgba(0, 0, 0, 0.041);
   border: 0;
-  border-bottom: solid rgba(0, 0, 0, 0.139) 1px;
-  text-align: center;
   outline: none;
   border: 0;
+  padding: 10px;
+  padding-left: 20px;
+  border-radius: 15px;
+}
+.Iconofilter {
+  background-color: rgba(212, 24, 24, 0);
+  color: rgb(0, 0, 0);
+
+  border: 0;
+  margin-right: 20px;
 }

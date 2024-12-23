@@ -1,0 +1,81 @@
+.containerNav {
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #222121;
+  color: aliceblue;
+}
+
+.Links {
+  margin-left: 30px;
+  text-decoration: none;
+  color: aliceblue;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.Links:hover {
+  color: blueviolet;
+}
+
+.logocontainer {
+  display: flex;
+  width: 80vw;
+  align-items: center;
+}
+.logocontainer h1 {
+  font-size: 15px;
+}
+
+.logocontainer button {
+  background-color: rgba(240, 248, 255, 0);
+  color: aliceblue;
+  border: 0;
+  margin-right: 10px;
+}
+
+.containerinnfo {
+  display: flex;
+  width: 90vw;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.containerIcons {
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.logoutbtn {
+  color: aliceblue;
+}
+
+.containerPerfil {
+  display: flex;
+  margin-left: 50px;
+  align-items: center;
+}
+.containerPerfil img {
+  border-radius: 50px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.containerPerfil button {
+  background-color: rgba(240, 248, 255, 0);
+  color: aliceblue;
+  border: 0;
+  margin-right: 10px;
+}
+.containerPerfil p {
+  color: aliceblue;
+  margin-right: 10px;
+  font-weight: 500;
+}
