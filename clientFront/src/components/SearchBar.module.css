@@ -19,7 +19,7 @@
 }
 
 .container button:hover {
-  background-color: rgba(191, 194, 188, 0.687);
+  background-color: rgb(2, 134, 77);
   transition: all 1s;
 }
 

@@ -2,11 +2,45 @@
   display: flex;
   border-radius: 4px;
   align-items: center;
-  justify-content: center;
   margin-top: 30px;
   width: 100vw;
+  flex-direction: column;
+  height: 90vh;
+}
+.containerbuttons {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 20px;
 }
 
+.containerbuttons button {
+  border: 0;
+  padding: 10px 25px;
+  font-weight: 600;
+  font-family: "Montserrat", serif;
+  background-color: rgb(2, 134, 77);
+  color: aliceblue;
+  border-radius: 10px;
+}
+
+.links {
+  background-color: #00010310;
+  color: rgb(7, 7, 7);
+  display: flex;
+  align-items: center;
+  width: 40px;
+  border-radius: 10px;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 1s;
+}
+
+.links:hover {
+  transition: all 1s;
+  background-color: rgb(2, 134, 77);
+  color: aliceblue;
+}
 .sectionTitle {
   font-weight: 700;
   border-radius: 5px;
@@ -19,8 +53,8 @@
 .gridContainer {
   display: flex;
   width: 80%;
+  min-height: 80vh;
   justify-content: space-around;
-  margin-top: 20px;
   align-items: center;
 }
 

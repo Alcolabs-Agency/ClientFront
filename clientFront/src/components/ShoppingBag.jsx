@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./ShoppingBag.module.css";
 import { Link } from "react-router-dom";
-import hy from "../../public/historial-02.png";
-import NumericKeyboard from "./NumericKeyboard";
 
 export default function ShoppingBag({ bagItems, updateQuantity }) {
   const totalPrice = bagItems.reduce(

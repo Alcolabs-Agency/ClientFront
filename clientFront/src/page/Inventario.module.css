@@ -1,27 +1,25 @@
-
 .container {
   width: 95vw;
   height: 100vh;
   margin-bottom: -40px;
   background-color: #ffffff;
   display: flex;
-  flex-direction:column;
-  align-items:end;
-  justify-content:flex-start;
-
+  flex-direction: column;
+  align-items: end;
+  justify-content: flex-start;
 }
 .header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px; 
+  gap: 8px;
   position: relative;
   width: 100%;
 }
 
 .logo {
   position: absolute;
-  top: 10px; 
+  top: 10px;
   left: 24px;
   height: 32px;
   width: auto;
@@ -29,7 +27,7 @@
 
 .backButton {
   position: absolute;
-  top: 50px; 
+  top: 50px;
   left: 24px;
   background: #fbbf24;
   border: none;
@@ -42,16 +40,16 @@
 .inventoryHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 80px; 
+  justify-content: left;
+  margin-top: 80px;
 }
 
 .sectionTitle {
   font-size: 24px;
   font-weight: bold;
   color: #4b5563;
+  margin: 0px;
 }
-
 
 .optionsContainer {
   display: flex;
@@ -60,9 +58,9 @@
 }
 
 .select {
-  padding: 8px 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 10px;
+  border: 1px solid #dddddd88;
   background-color: #fff;
   font-size: 14px;
   color: #333;
@@ -71,13 +69,13 @@
 .filterButton {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  background-color: #f0e68c;
+  padding: 8px 15px;
+  background-color: #eeebd2;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  color: #333;
+  color: #000000;
 }
 
 .iconButton {
@@ -85,19 +83,19 @@
   align-items: center;
   justify-content: center;
   padding: 8px;
-  background-color: #f0e68c;
+  background-color: #000000;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   font-size: 16px;
-  color: #333;
+  color: #e6e4e4;
 }
 
 .createButton {
   padding: 8px 16px;
-  background-color: #ffcc00;
+  background-color: #e1e1dd;
   margin-right: 20px;
-  color: white;
+  color: rgb(0, 0, 0);
   font-weight: bold;
   border: none;
   border-radius: 5px;
@@ -114,21 +112,20 @@
   width: 120px;
 }
 
-
 .table {
-  width: 100%;
+  width: 90vw;
   border-collapse: collapse;
   margin-top: 30px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff00;
 }
 
-th, td {
+th,
+td {
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd81;
   text-align: left;
   font-size: 14px;
-  color: #333;
+  color: #000000;
 }
 
 th {
@@ -136,20 +133,19 @@ th {
   font-weight: bold;
 }
 
-.table th input[type="checkbox"], .table td input[type="checkbox"] {
+.table th input[type="checkbox"],
+.table td input[type="checkbox"] {
   cursor: pointer;
 }
 
-
-
 .editIcon {
   cursor: pointer;
-  color: #4b5563;
+  color: #7e7e5e;
   font-size: 18px;
   margin-left: 5px;
   transition: color 0.3s ease;
 }
 
 .editIcon:hover {
-  color: #fbbf24; 
+  color: #fbbf24;
 }

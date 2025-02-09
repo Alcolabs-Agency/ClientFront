@@ -1,8 +1,16 @@
+import { Link } from "react-router-dom";
 import styles from "./CreateProduct.module.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 export default function CreateProduct() {
   return (
     <div className={styles.mainContainer}>
+      <div className={styles.containerbuttons}>
+        <Link to={"/"} className={styles.links}>
+          <i className="fas fa-arrow-left"></i>
+        </Link>
+        <button>Save</button>
+      </div>
       <div className={styles.gridContainer}>
         <div className={styles.column1}>
           <p className={styles.sectionTitle}>Info.</p>
