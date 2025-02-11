@@ -29,15 +29,15 @@ export default function CreateProduct() {
     const payload = {
       data:{
       ...formData,
-      category: "2", // Sobrescribimos
+      category: "1", // Sobrescribimos
       }
     };
     try {
-      const response = await fetch("http://localhost:4000/api/products", {
+      const response = await fetch("https://express-app-dep.onrender.com/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNzM4NzE1NzgxLCJleHAiOjE3NDEzMDc3ODF9.va7BjfrYzfNi8h2k2WVRN_VGg19cdyLJbvw09B512mE"
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM5MzEyNDU1LCJleHAiOjE3NDE5MDQ0NTV9.edz5Tms5sgFHD2u_hxZ4GqO1fD7U6_v_o2mvuFakqno"
         },
         body: JSON.stringify(payload),
       });
