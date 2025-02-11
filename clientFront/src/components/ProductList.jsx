@@ -1,11 +1,11 @@
 import { products } from "../data";
-import React from "react";
 import ProductCard from "./ProductCard";
 import styles from "./ProductList.module.css";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 export default function ProductList({ addToBag }) {
   const [searchTerm, setSearchTerm] = useState("");
 
