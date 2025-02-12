@@ -1,19 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./page/Home";
 import CreateProduct from "./page/CreateProduct";
 import Inventario from "./page/Inventario";
 import EditVariant from "./page/EditVariant";
 import EditVariableTabs from "./page/EditVariableTabs";
 import PaymentOptions from "./page/PaymentOptions";
-import NavBar from "./components/NavBar";
+import Home from "./page/Home";
+import MenuDes from "./components/MenuDes";
 
 function App() {
   return (
     <Router>
-      {/*
-      <NavBar />
-     */}
+      <MenuDes />
 
       <Routes>
         <Route path="/" element={<Home />} />
