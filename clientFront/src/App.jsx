@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import "./App.css";
 import CreateProduct from "./page/CreateProduct";
 import Inventario from "./page/Inventario";
@@ -8,13 +9,50 @@ import PaymentOptions from "./page/PaymentOptions";
 import Home from "./page/Home";
 import MenuDes from "./components/MenuDes";
 
+
 function App() {
+  const [bagItems, setBagItems] = useState([]);
+
+  const addToBag = (product) => {
+    const existingItem = bagItems.find((item) => item.id === product.id);
+    if (existingItem) {
+      setBagItems(
+        bagItems.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+    } else {
+      setBagItems([...bagItems, { ...product, quantity: 1 }]);
+    }
+  };
+
+  const updateQuantity = (id, quantity) => {
+    if (quantity <= 0) {
+      setBagItems(bagItems.filter((item) => item.id !== id));
+    } else {
+      setBagItems(
+        bagItems.map((item) =>
+          item.id === id ? { ...item, quantity: quantity } : item
+        )
+      );
+    }
+  };
+
+  // Función para vaciar el carrito
+  const clearBag = () => {
+    setBagItems([]);
+};
   return (
     <Router>
       <MenuDes />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+      <Route
+          path="/"
+          element={<Home bagItems={bagItems} addToBag={addToBag} updateQuantity={updateQuantity} />}
+        />
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/inventario" element={<Inventario />} />
         <Route path="/editVariant" element={<EditVariant />} />
