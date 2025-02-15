@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Logo from "../../public/LOGO-04.png";
 import styles from "./NavBar.module.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 

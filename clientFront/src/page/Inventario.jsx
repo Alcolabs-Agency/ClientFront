@@ -1,6 +1,7 @@
 import styles from "./Inventario.module.css";
 import { useState } from "react";
 import {
+  // eslint-disable-next-line no-unused-vars
   FaArrowLeft,
   FaSearch,
   FaFilter,

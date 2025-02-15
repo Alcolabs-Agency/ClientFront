@@ -1,14 +1,15 @@
-import React from "react";
 import styles from "./ShoppingBag.module.css";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export default function ShoppingBag({ bagItems, updateQuantity }) {
+function ShoppingBag({ bagItems, updateQuantity }) {
   const totalPrice = bagItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
   return (
-    <div className={styles.conatiner}>
+    <div className={styles.container}>
       {bagItems.length === 0 ? (
         <p></p>
       ) : (
@@ -20,7 +21,7 @@ export default function ShoppingBag({ bagItems, updateQuantity }) {
           </div>
 
           {bagItems.map((item, index) => (
-            <div className={styles.items}>
+            <div key={item.id} className={styles.items}>
               <div>
                 <p key={index}>
                   <strong>{item.name} </strong>
@@ -76,3 +77,17 @@ export default function ShoppingBag({ bagItems, updateQuantity }) {
     </div>
   );
 }
+
+ShoppingBag.propTypes = {
+  bagItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  updateQuantity: PropTypes.func.isRequired,
+};
+
+export default ShoppingBag;
