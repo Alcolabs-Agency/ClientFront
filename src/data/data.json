@@ -1,0 +1,22 @@
+{
+  "Header": {
+    "title": "Smart Pos",
+    "paragraph": "¡Potencia tu negocio con un solo dispositivo! Optimiza tus ventas, controla tu inventario al instante y simplifica los pagos para que puedas concentrarte en lo que realmente importa: tus clientes."
+  },
+  "About": {
+    "paragraph": "SmartPOS es más que un punto de venta. Es una herramienta integral diseñada para negocios modernos. Con tecnología avanzada, permite procesar pagos, escanear facturas mediante OCR, gestionar inventarios y mucho más."
+    ,
+    "Why": [
+      "Procesamiento rápido de pagos con tarjetas, criptomonedas y efectivo",
+      "Escaneo de facturas con tecnología OCR.",
+      "Gestión automatizada de inventarios y reportes en tiempo real.",
+      "Integración con plataformas populares."
+    ],
+    "Why2": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  }
+}
