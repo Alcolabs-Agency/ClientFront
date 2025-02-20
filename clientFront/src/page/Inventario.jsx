@@ -1,28 +1,25 @@
 import styles from "./Inventario.module.css";
 import { useState, useEffect } from "react";
-import {
-  FaArrowLeft,
-  FaSearch,
-  FaFilter,
-  FaPlus,
-  FaEdit,
-} from "react-icons/fa";
+import {  FaSearch, FaFilter, FaPlus, FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-
-const fetchProducts = async(setProducts, setError, setLoading) => {
+const fetchProducts = async (setProducts, setError, setLoading, categoryId = null) => {
   try {
-    const response = await fetch('http://localhost:4000/api/products',{
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNzM4NzE1NzgxLCJleHAiOjE3NDEzMDc3ODF9.va7BjfrYzfNi8h2k2WVRN_VGg19cdyLJbvw09B512mE"
-    },
+    let url = 'https://express-app-dep.onrender.com/api/products';
+    if (categoryId) {
+      url += `?category=${categoryId}`;
     }
-    );
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQwMDAyNTU1LCJleHAiOjE3NDI1OTQ1NTV9.o33Izh2SHogoF_TtvFZ16s-QHEWTNk9KbdG4iEpRFx8"
+      },
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    setProducts(data.data)
+    setProducts(data.data);
   } catch (err) {
     setError(err.message);
   } finally {
@@ -30,89 +27,81 @@ const fetchProducts = async(setProducts, setError, setLoading) => {
   }
 };
 
-const useProducts = () => {
-  const [products, setProducts] = useState([]);
+const fetchCategories = async (setCategories, setError) => {
+  try {
+    const response = await fetch('https://express-app-dep.onrender.com/api/categories', {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQwMDAyNTU1LCJleHAiOjE3NDI1OTQ1NTV9.o33Izh2SHogoF_TtvFZ16s-QHEWTNk9KbdG4iEpRFx8"
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    setCategories(data);
+  } catch (err) {
+    setError(err.message);
+  }
+};
+
+const useCategories = () => {
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchProducts(setProducts);
+    fetchCategories(setCategories, setError);
   }, []);
 
-  return { products };
+  return { categories, error };
+};
+
+const useProducts = (categoryId) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    console.log("productos");
+    fetchProducts(setProducts, setError, setLoading, categoryId);
+  }, [categoryId]);
+
+  return { products, loading, error };
 };
 
 export default function Inventario() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const {inventoryData} = useProducts()
-  console.log(inventoryData);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { categories } = useCategories();
+  const { products, loading, error } = useProducts(selectedCategory);
+
+
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
   };
 
-  const handleEdit = (id) => {
-    console.log(`Editando artículo con ID: ${id}`);
+  const handleEdit = (documentId) => {
+    console.log(`Editando artículo con ID: ${documentId}`);
   };
 
-  // Datos simulados para la tabla de inventario
-  /* const inventoryData = [
-    {
-      id: 1,
-      articulo: "Tenazas D'Orite STV 10\" 254MM BI-502",
-      categoria: "Herramientas",
-      existencia: "96.50/unidad",
-      precio: "$8.50",
-    },
-    {
-      id: 2,
-      articulo: "Martillo Acero Profesional 16oz",
-      categoria: "Herramientas",
-      existencia: "124/unidad",
-      precio: "$12.00",
-    },
-    {
-      id: 3,
-      articulo: 'Destornillador Philips 5" Mango Erg.',
-      categoria: "Herramientas",
-      existencia: "50/unidad",
-      precio: "$5.00",
-    },
-    {
-      id: 4,
-      articulo: 'Serrucho Profesional 14" con Mango',
-      categoria: "Herramientas",
-      existencia: "78/unidad",
-      precio: "$15.30",
-    },
-    {
-      id: 5,
-      articulo: "Cinta Métrica 3m Reforzada",
-      categoria: "Herramientas",
-      existencia: "210/unidad",
-      precio: "$3.20",
-    },
-    {
-      id: 6,
-      articulo: 'Llave Inglesa 8" Ajustable',
-      categoria: "Herramientas",
-      existencia: "95/unidad",
-      precio: "$9.80",
-    },
-    {
-      id: 7,
-      articulo: "Juego de Llaves Allen 10pzas",
-      categoria: "Herramientas",
-      existencia: "65/unidad",
-      precio: "$6.50",
-    },
-  ];
- */
+  const handleCategoryChange = (event) => {
+    const categoryId = event.target.value;
+    setSelectedCategory(categoryId);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}></div>
 
       <div className={styles.inventoryHeader}>
         <div className={styles.optionsContainer}>
-          <select className={styles.select}>
+          <select className={styles.select} onChange={handleCategoryChange}>
             <option>Categoría</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
           <select className={styles.select}>
             <option>Estado</option>
@@ -139,7 +128,7 @@ export default function Inventario() {
           <button className={styles.iconButton}>
             <FaPlus />
           </button>
-          <button className={styles.createButton}>Crear artículo</button>
+          <Link to="/createProduct" className={styles.createButton}>Crear producto</Link>
         </div>
       </div>
 
@@ -147,29 +136,29 @@ export default function Inventario() {
         <thead>
           <tr>
             <th>
-              <input type="checkbox" />
+              
             </th>
             <th>Artículo</th>
             <th>Categoría</th>
             <th>Existencia</th>
             <th>Precio</th>
-            <th>Opciones</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {inventoryData.map((item) => (
-            <tr key={item.id}>
+          {products.map((item) => (
+            <tr key={item.documentId}>
               <td>
                 <input type="checkbox" />
               </td>
-              <td>{item.articulo}</td>
-              <td>{item.categoria}</td>
-              <td>{item.existencia}</td>
-              <td>{item.precio}</td>
+              <td>{item.name}</td>
+              <td>{item.category.name}</td>
+              <td>{item.stock}</td>
+              <td>${item.price}</td>
               <td>
                 <FaEdit
                   className={styles.editIcon}
-                  onClick={() => handleEdit(item.id)}
+                  onClick={() => handleEdit(item.documentId)}
                   title="Editar artículo"
                 />
               </td>

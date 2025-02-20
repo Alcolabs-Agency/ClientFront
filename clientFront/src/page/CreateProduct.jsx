@@ -37,7 +37,7 @@ export default function CreateProduct() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM5MzEyNDU1LCJleHAiOjE3NDE5MDQ0NTV9.edz5Tms5sgFHD2u_hxZ4GqO1fD7U6_v_o2mvuFakqno"
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQwMDAyNTU1LCJleHAiOjE3NDI1OTQ1NTV9.o33Izh2SHogoF_TtvFZ16s-QHEWTNk9KbdG4iEpRFx8"
         },
         body: JSON.stringify(payload),
       });
