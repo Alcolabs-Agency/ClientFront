@@ -9,7 +9,6 @@ import PaymentOptions from "./page/PaymentOptions";
 import Home from "./page/Home";
 import MenuDes from "./components/MenuDes";
 
-
 function App() {
   const [bagItems, setBagItems] = useState([]);
 
@@ -43,15 +42,21 @@ function App() {
   // Función para vaciar el carrito
   const clearBag = () => {
     setBagItems([]);
-};
+  };
   return (
     <Router>
       <MenuDes />
 
       <Routes>
-      <Route
+        <Route
           path="/"
-          element={<Home bagItems={bagItems} addToBag={addToBag} updateQuantity={updateQuantity} />}
+          element={
+            <Home
+              bagItems={bagItems}
+              addToBag={addToBag}
+              updateQuantity={updateQuantity}
+            />
+          }
         />
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/inventario" element={<Inventario />} />

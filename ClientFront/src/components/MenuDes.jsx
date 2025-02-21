@@ -1,5 +1,6 @@
 import styles from "./MenuDes.module.css"; // Importamos los estilos
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Link } from "react-router-dom";
 
 const Menu = () => {
   return (
@@ -10,14 +11,30 @@ const Menu = () => {
       </div>
       <div className={styles.menucontent}>
         <ul>
-          <li>Home</li>
-          <li>Nuevo Producto</li>
-          <li>Inventario</li>
-          <li>Smart Inventory</li>
-          <li>Categories</li>
-          <li>Settings</li>
-          <li>Registro Facturas</li>
-          <li>Administrar dispositivos</li>
+          <Link to="/" className={styles.links}>
+            <li>Home</li>
+          </Link>
+          <Link to="createProduct" className={styles.links}>
+            <li>Nuevo Producto</li>
+          </Link>
+          <Link to="/" className={styles.links}>
+            <li>Inventario</li>
+          </Link>
+          <Link to="/" className={styles.links}>
+            <li>Smart Inventory</li>
+          </Link>
+          <Link to="/" className={styles.links}>
+            <li>Categories</li>
+          </Link>
+          <Link to="/" className={styles.links}>
+            <li>Settings</li>
+          </Link>
+          <Link to="/" className={styles.links}>
+            <li>Registro Facturas</li>
+          </Link>
+          <Link to="/" className={styles.links}>
+            <li>Administrar dispositivos</li>
+          </Link>
         </ul>
       </div>
     </div>
