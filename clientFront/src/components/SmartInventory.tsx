@@ -10,11 +10,12 @@ pdfjsLib.GlobalWorkerOptions.isEvalSupported = false;
 const baseUrl = (import.meta as any).env.VITE_API_URL;
 console.log("Base URL =>", baseUrl);
 
-interface ExtractedRow {
-  bbox: string;
-  class: string;
-  text: string;
+interface InvoiceLine {
+  description: string;
+  quantity: string;
+  price: string;
   confidence: number;
+  class: string; // Add this line
 }
 
 const SmartInventory: React.FC = () => {
@@ -23,10 +24,8 @@ const SmartInventory: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
-  const [tableData, setTableData] = useState<ExtractedRow[]>([]);
-  const [modifiedTableData, setModifiedTableData] = useState<ExtractedRow[]>(
-    []
-  );
+  const [tableData, setTableData] = useState<InvoiceLine[]>([]);
+  const [modifiedTableData, setModifiedTableData] = useState<InvoiceLine[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const dataToRender = isEditing ? modifiedTableData : tableData;
 
@@ -94,7 +93,6 @@ const SmartInventory: React.FC = () => {
   // Enviar archivo al backend
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (!file) {
       setError("No se ha seleccionado ningún archivo.");
       return;
@@ -123,6 +121,7 @@ const SmartInventory: React.FC = () => {
         let errorMessage = `Error al procesar el documento. Código de estado: ${response.status}`;
         try {
           if (errorText) {
+            console.log("Respuesta del backend:", errorText);
             const errorData = JSON.parse(errorText);
             errorMessage = errorData.error || errorMessage;
           }
@@ -132,23 +131,29 @@ const SmartInventory: React.FC = () => {
         throw new Error(errorMessage);
       }
 
-      
       const responseText = await response.text();
       if (!responseText) {
         throw new Error("Respuesta vacía del servidor.");
       }
       const result = JSON.parse(responseText);
       console.log("✅ Datos recibidos:", result);
+      console.log("📩 Respuesta del backend (cruda):", result);
 
-      
-      const rows: ExtractedRow[] = result.data;
-      if (Array.isArray(rows) && rows.length > 0) {
-        setTableData(rows);
-        setModifiedTableData(JSON.parse(JSON.stringify(rows)));
+      const boxes = result.data;
+      if (Array.isArray(boxes) && boxes.length > 0) {
+        
+        const lines: InvoiceLine[] = boxes.map((box: any) => ({
+          description: box.descripcion || "No detectado",
+          quantity: box.cantidad || "No detectado",
+          price: box.precio || "No detectado",
+          confidence: box.confidence || 0,
+          class: "", 
+        }));
+
+        setTableData(lines);
+        setModifiedTableData(JSON.parse(JSON.stringify(lines)));
       } else {
-        setError(
-          "El modelo no detectó datos en el documento. Verifica que contenga las clases esperadas."
-        );
+        setError("El modelo no detectó datos en el documento...");
       }
 
       const processedImages = result.images;
@@ -175,6 +180,7 @@ const SmartInventory: React.FC = () => {
     setFile(null);
     setImage(null);
     setTableData([]);
+    setModifiedTableData([]);
     setThumbnails([]);
     setProgress(0);
     setError(null);
@@ -185,21 +191,17 @@ const SmartInventory: React.FC = () => {
   const exportToCSV = () => {
     if (tableData.length === 0) return;
 
-    const csvRows: string[] = [];
-  
-    csvRows.push(documentColumns.join(",") as string);
+    const headers = ["DESCRIPCIÓN", "CANTIDAD", "PRECIO", "PRECISIÓN"];
+    const csvRows = [headers.join(",")];
 
- 
-    tableData.forEach((row) => {
-      
-      const descripcion = row.class === "descripcion" ? row.text : "";
-      const cantidad = row.class === "cantidad" ? row.text : "";
-      const precio = row.class === "precio" ? row.text : "";
-      const precision = row.confidence.toString();
-
-      csvRows.push(
-        `${descripcion},${cantidad},${precio},${precision}` as string
-      );
+    tableData.forEach((line) => {
+      const row = [
+        line.description,
+        line.quantity,
+        line.price,
+        line.confidence.toString(),
+      ].join(",");
+      csvRows.push(row);
     });
 
     const csvContent = csvRows.join("\n");
@@ -218,7 +220,7 @@ const SmartInventory: React.FC = () => {
     try {
       const body = {
         rows: modifiedTableData,
-        invoiceNumber: "NV-2023-001",
+        invoiceNumber: "",
       };
 
       const response = await fetch(`${baseUrl}/save-document-changes`, {
@@ -237,11 +239,10 @@ const SmartInventory: React.FC = () => {
       const result = await response.json();
       console.log("Cambios guardados con éxito:", result);
 
-   
       setTableData([...modifiedTableData]);
-   
+
       setIsEditing(false);
-    
+
       alert("¡Cambios guardados con éxito!");
     } catch (err) {
       console.error("Error guardando cambios:", err);
@@ -249,17 +250,15 @@ const SmartInventory: React.FC = () => {
     }
   };
 
-
   const handleAddRow = () => {
-    const newRow: ExtractedRow = {
-      bbox: "",
+    const newLine: InvoiceLine = {
+      description: "",
+      quantity: "",
+      price: "",
+      confidence: 0,
       class: "",
-      text: "",
-      confidence: 0, 
     };
-
-    
-    setModifiedTableData((prev) => [...prev, newRow]);
+    setModifiedTableData((prev) => [...prev, newLine]);
   };
 
   return (
@@ -339,7 +338,6 @@ const SmartInventory: React.FC = () => {
           )}
         </div>
 
-      
         <div className={styles["extracted-data-section"]}>
           {tableData.length === 0 ? (
             <div className={styles["no-data"]}>
@@ -347,139 +345,113 @@ const SmartInventory: React.FC = () => {
             </div>
           ) : (
             <div className={styles["datos-extraidos"]}>
-             
               <div className={styles["info-header"]}>
                 <p>
                   <strong>Tipo de documento:</strong> Factura
                 </p>
                 <p>
-                  <strong>Número de documento:</strong> NV-2023-001
+                  <strong>Número de documento:</strong>
                 </p>
               </div>
 
               <table className={styles["extract-table"]}>
-                
                 <thead>
                   <tr>
-                    <th>CLASE</th>
+                    <th>CLASE OCR</th>
                     <th>DESCRIPCIÓN</th>
                     <th>CANTIDAD</th>
                     <th>PRECIO</th>
                     <th>PRECISIÓN</th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  {dataToRender.map((row, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td>
-                          {isEditing ? (
-                            <select
-                              value={row.class} 
-                              onChange={(e) => {
-                                const updated = [...modifiedTableData];
-                                updated[idx].class = e.target.value;
-                                setModifiedTableData(updated);
-                              }}
-                            >
+                  {dataToRender.map((row, idx) => (
+                    <tr key={idx}>
+                      <td>
+                        {isEditing ? (
+                          <input
+                            value={row.class}
+                            onChange={(e) => {
+                              const updated = [...modifiedTableData];
+                              updated[idx].class = e.target.value;
+                              setModifiedTableData(updated);
+                            }}
+                          />
+                        ) : (
+                          row.class
+                        )}
+                      </td>
 
-                              <option value="">--Seleccionar--</option>
-                              <option value="descripcion">descripcion</option>
-                              <option value="cantidad">cantidad</option>
-                              <option value="precio">precio</option>
-                             
-                            </select>
-                          ) : (
-                            row.class
-                          )}
-                        </td>
+                      {/* DESCRIPCIÓN */}
+                      <td>
+                        {isEditing ? (
+                          <input
+                            value={row.description}
+                            onChange={(e) => {
+                              const updated = [...modifiedTableData];
+                              updated[idx].description = e.target.value;
+                              setModifiedTableData(updated);
+                            }}
+                          />
+                        ) : (
+                          row.description
+                        )}
+                      </td>
 
-                        <td>
-                          {row.class === "descripcion" ? (
-                            isEditing ? (
-                              <input
-                                value={row.text}
-                                onChange={(e) => {
-                                  const updated = [...modifiedTableData];
-                                  updated[idx].text = e.target.value;
-                                  setModifiedTableData(updated);
-                                }}
-                              />
-                            ) : (
-                            
-                              row.text
-                            )
-                          ) : (
-                            
-                            ""
-                          )}
-                        </td>
+                      {/* CANTIDAD */}
+                      <td>
+                        {isEditing ? (
+                          <input
+                            value={row.quantity}
+                            onChange={(e) => {
+                              const updated = [...modifiedTableData];
+                              updated[idx].quantity = e.target.value;
+                              setModifiedTableData(updated);
+                            }}
+                          />
+                        ) : (
+                          row.quantity
+                        )}
+                      </td>
 
-                       
-                        <td>
-                          {row.class === "cantidad" ? (
-                            isEditing ? (
-                              <input
-                                value={row.text}
-                                onChange={(e) => {
-                                  const updated = [...modifiedTableData];
-                                  updated[idx].text = e.target.value;
-                                  setModifiedTableData(updated);
-                                }}
-                              />
-                            ) : (
-                              row.text
-                            )
-                          ) : (
-                            ""
-                          )}
-                        </td>
+                      {/* PRECIO */}
+                      <td>
+                        {isEditing ? (
+                          <input
+                            value={row.price}
+                            onChange={(e) => {
+                              const updated = [...modifiedTableData];
+                              updated[idx].price = e.target.value;
+                              setModifiedTableData(updated);
+                            }}
+                          />
+                        ) : (
+                          row.price
+                        )}
+                      </td>
 
-                       
-                        <td>
-                          {row.class === "precio" ? (
-                            isEditing ? (
-                              <input
-                                value={row.text}
-                                onChange={(e) => {
-                                  const updated = [...modifiedTableData];
-                                  updated[idx].text = e.target.value;
-                                  setModifiedTableData(updated);
-                                }}
-                              />
-                            ) : (
-                              row.text
-                            )
-                          ) : (
-                            ""
-                          )}
-                        </td>
-
-                       
-                        <td>
-                          {isEditing ? (
-                            <input
-                              value={row.confidence.toFixed(2)}
-                              onChange={(e) => {
-                                const updated = [...modifiedTableData];
-                                updated[idx].confidence =
-                                  parseFloat(e.target.value) || 0;
-                                setModifiedTableData(updated);
-                              }}
-                            />
-                          ) : (
-                            row.confidence.toFixed(2) + "%"
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
+                      {/* CONFIDENCE */}
+                      <td>
+                        {isEditing ? (
+                          <input
+                            value={row.confidence.toFixed(2)}
+                            onChange={(e) => {
+                              const updated = [...modifiedTableData];
+                              updated[idx].confidence =
+                                parseFloat(e.target.value) || 0;
+                              setModifiedTableData(updated);
+                            }}
+                          />
+                        ) : (
+                          row.confidence.toFixed(2) + "%"
+                        )}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
               <div className={styles["table-actions-row"]}>
-              
                 <button
                   onClick={exportToCSV}
                   disabled={loading || !tableData}
@@ -493,32 +465,37 @@ const SmartInventory: React.FC = () => {
                       className={styles["btn-editar"]}
                       onClick={() => {
                         setIsEditing(true);
-                        setModifiedTableData(JSON.parse(JSON.stringify(tableData)));
+                        setModifiedTableData(
+                          JSON.parse(JSON.stringify(tableData))
+                        );
                       }}
                     >
                       Editar
                     </button>
                   ) : (
                     <>
-                      <button className={styles["btn-add"]} onClick={handleAddRow}>
+                      <button
+                        className={styles["btn-add"]}
+                        onClick={handleAddRow}
+                      >
                         + Agregar Fila
                       </button>
 
-                      <button className={styles["btn-guardar"]} onClick={saveChanges}>
+                      <button
+                        className={styles["btn-guardar"]}
+                        onClick={saveChanges}
+                      >
                         Guardar Cambios
                       </button>
                     </>
-
                   )}
-
                 </div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
-  </div>
-  
   );
 };
 
