@@ -9,6 +9,8 @@ import PaymentOptions from "./page/PaymentOptions";
 import NavBar from "./components/NavBar";
 import SmartInventory from "./components/SmartInventory";
 import ErrorBoundary from "./components/ErrorBoundary";
+import PurchaseOrders from "./components/PurchaseOrders";
+import OrderDetail from "./components/OrderDetail";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/EditVariableTabs" element={<EditVariableTabs />} />
         <Route path="/PaymentOptions" element={<PaymentOptions />} />
        <Route path="/smartInventory" element={<SmartInventory />} />
+       <Route path="/purchaseOrders" element={<PurchaseOrders />} />
+       <Route path="/purchaseOrders/:id" element={<OrderDetail />} />
       </Routes>
       </ErrorBoundary>
     </Router>

@@ -1,8 +1,11 @@
 import React, { useState, ChangeEvent } from "react";
 import { ProgressBar } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; 
 import styles from "./SmartInventory.module.css";
 import * as pdfjsLib from "pdfjs-dist/build/pdf";
 import pdfWorker from "pdfjs-dist/build/pdf.worker?url";
+import Swal from 'sweetalert2';
+
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 pdfjsLib.GlobalWorkerOptions.isEvalSupported = false;
@@ -15,7 +18,7 @@ interface InvoiceLine {
   quantity: string;
   price: string;
   confidence: number;
-  class: string; // Add this line
+  class: string; 
 }
 
 const SmartInventory: React.FC = () => {
@@ -39,6 +42,43 @@ const SmartInventory: React.FC = () => {
   // Almacena “thumbnails” si es PDF
   const [thumbnails, setThumbnails] = useState<string[]>([]);
 
+  const navigate = useNavigate();
+
+  const handleArchivada = async () => {
+    try {
+      const totalCalculated = tableData.reduce((acc, line) => {
+        const priceStr = line.price || "0";
+        const priceNum = parseFloat(priceStr.replace(/[^\d.]/g, ""));
+        return acc + (isNaN(priceNum) ? 0 : priceNum);
+      }, 0);
+      
+      const body = {
+        fecha: new Date().toISOString().slice(0, 10), 
+        proveedor: "Proveedor Desconocido",
+        total: totalCalculated,
+        estado: "Archivada",
+        lineas: tableData,
+      };
+  
+      const response = await fetch(`${baseUrl}/archive-invoice`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      
+      if (!response.ok) {
+        throw new Error("Error al archivar la factura");
+      }
+  
+      navigate("/purchaseOrders");
+  
+    } catch (error) {
+      console.error("Error archivando:", error);
+      alert("Error al archivar la factura");
+    }
+  };
+  
+  
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
@@ -90,7 +130,6 @@ const SmartInventory: React.FC = () => {
     }
   };
 
-  // Enviar archivo al backend
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!file) {
@@ -137,8 +176,7 @@ const SmartInventory: React.FC = () => {
       }
       const result = JSON.parse(responseText);
       console.log("✅ Datos recibidos:", result);
-      console.log("📩 Respuesta del backend (cruda):", result);
-
+    
       const boxes = result.data;
       if (Array.isArray(boxes) && boxes.length > 0) {
         
@@ -240,13 +278,22 @@ const SmartInventory: React.FC = () => {
       console.log("Cambios guardados con éxito:", result);
 
       setTableData([...modifiedTableData]);
-
       setIsEditing(false);
 
-      alert("¡Cambios guardados con éxito!");
+      Swal.fire({
+        title: '¡Cambios guardados!',
+        text: 'Los cambios se han guardado con éxito.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
     } catch (err) {
       console.error("Error guardando cambios:", err);
-      alert("Ocurrió un error al guardar los cambios.");
+      Swal.fire({
+        title: 'Error',
+        text: 'Ocurrió un error al guardar los cambios.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   };
 
@@ -266,7 +313,7 @@ const SmartInventory: React.FC = () => {
       <div className={styles.header}>
         <h2>Escaneo de Facturas PNG o PDF</h2>
         <div>
-          <button className={styles["btn-archivado"]} disabled={loading}>
+          <button className={styles["btn-archivado"]} disabled={loading} onClick={handleArchivada}>
             Archivada
           </button>
           <button className={styles["btn-reseteo"]} onClick={resetForm}>

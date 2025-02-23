@@ -1,0 +1,59 @@
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #fff;
+  }
+  
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .infoHeader {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .basicInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .tableLines {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  .tableLines th,
+  .tableLines td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+  }
+  
+  .btnVolver {
+    background-color: #f4fd9d;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+  .btnVolver:hover {
+    background-color: #f1dc64;
+  }
+  
