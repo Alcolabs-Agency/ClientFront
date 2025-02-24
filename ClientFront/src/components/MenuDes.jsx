@@ -17,7 +17,7 @@ const Menu = () => {
           <Link to="createProduct" className={styles.links}>
             <li>Nuevo Producto</li>
           </Link>
-          <Link to="/" className={styles.links}>
+          <Link to="/inventario" className={styles.links}>
             <li>Inventario</li>
           </Link>
           <Link to="/" className={styles.links}>
