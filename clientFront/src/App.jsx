@@ -11,6 +11,8 @@ import SmartInventory from "./components/SmartInventory";
 import ErrorBoundary from "./components/ErrorBoundary";
 import PurchaseOrders from "./components/PurchaseOrders";
 import OrderDetail from "./components/OrderDetail";
+import CreateOrder from "./components/CreateOrder";
+import Providers from "./components/Providers";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
        <Route path="/smartInventory" element={<SmartInventory />} />
        <Route path="/purchaseOrders" element={<PurchaseOrders />} />
        <Route path="/purchaseOrders/:id" element={<OrderDetail />} />
+       <Route path="/createOrder" element={<CreateOrder />} />
+       <Route path="/providers" element={<Providers />} />
+
       </Routes>
       </ErrorBoundary>
     </Router>

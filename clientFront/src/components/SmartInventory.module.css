@@ -214,10 +214,18 @@
 .btn-editar:hover {
   background-color: #e68900;
 }
+.btn-add {
+  background-color:  #f2c94c;
+  color: #110f0f;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
 
 .btn-guardar {
   background-color:  #f2c94c;
-  color: #fff;
+  color: #140c0c;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;

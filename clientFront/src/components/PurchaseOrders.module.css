@@ -83,6 +83,15 @@
   .btnAccion:hover {
     background-color: #ccc;
   }
+
+  .handleVolver {
+    margin-top: 1rem;
+    background-color: #ebdb4b;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
   
   .btnVolver {
     margin-top: 1rem;

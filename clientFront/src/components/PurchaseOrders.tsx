@@ -62,7 +62,7 @@ const PurchaseOrders: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.title}>Gestor de Órdenes de Compra</h2>
-        {/* Aquí coloqare un icono de react */}
+        
       </div>
 
       <div className={styles.tabButtons}>
