@@ -1,11 +1,9 @@
 import styles from "./ShoppingBag.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
 function ShoppingBag({ bagItems, updateQuantity }) {
-
-export default function ShoppingBag({ bagItems, updateQuantity }) {
   const navigate = useNavigate()
   async function validateStock(bagItems) {
     const productsToValidate = bagItems.map((item) => ({

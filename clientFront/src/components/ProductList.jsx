@@ -1,34 +1,33 @@
-import { products } from "../data";
-//import { products } from "../data";
-import React from "react";
 import ProductCard from "./ProductCard";
 import styles from "./ProductList.module.css";
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
-export default function ProductList({ addToBag }) {
-  const [searchTerm, setSearchTerm] = useState("");
 const fetchProducts = async(setProducts, setError, setLoading) => {
   try {
     const response = await fetch('https://express-app-dep.onrender.com/api/products',{
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQwMDAyNTU1LCJleHAiOjE3NDI1OTQ1NTV9.o33Izh2SHogoF_TtvFZ16s-QHEWTNk9KbdG4iEpRFx8"
-    },
-    }
-    );
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQwMDAyNTU1LCJleHAiOjE3NDI1OTQ1NTV9.o33Izh2SHogoF_TtvFZ16s-QHEWTNk9KbdG4iEpRFx8"
+      }
+    });
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    setProducts(data.data)
+    setProducts(data.data);
   } catch (err) {
     setError(err.message);
   } finally {
     setLoading(false);
   }
+};
+
+ProductList.propTypes = {
+  addToBag: PropTypes.func.isRequired,
 };
 
 const useProducts = () => {
@@ -43,8 +42,9 @@ const useProducts = () => {
   return { products, loading, error };
 };
 
+
 export default function ProductList({ addToBag }) {
-  const {products} = useProducts()
+  const { products, loading, error } = useProducts();
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -64,7 +64,11 @@ export default function ProductList({ addToBag }) {
       </div>
 
       <div className={styles.ContainerList}>
-        {filteredProducts.length > 0 ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <ProductCard
               key={product.documentId}

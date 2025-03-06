@@ -14,7 +14,7 @@ import OrderDetail from "./components/OrderDetail";
 import CreateOrder from "./components/CreateOrder";
 import Providers from "./components/Providers";
 import Home from "./page/Home";
-import MenuDes from "./components/MenuDes";
+// import MenuDes from "./components/MenuDes";
 
 function App() {
   const [bagItems, setBagItems] = useState([]);
@@ -50,35 +50,38 @@ function App() {
   const clearBag = () => {
     setBagItems([]);
   };
+  const removeFromBag = (id) => {
+    setBagItems(bagItems.filter((item) => item.id !== id));
+  };
   return (
     <Router>
       <NavBar />
       <ErrorBoundary>
-      <MenuDes />
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              bagItems={bagItems}
-              addToBag={addToBag}
-              updateQuantity={updateQuantity}
-            />
-          }
-        />
-        <Route path="/createProduct" element={<CreateProduct />} />
-        <Route path="/inventario" element={<Inventario />} />
-        <Route path="/editVariant" element={<EditVariant />} />
-        <Route path="/EditVariableTabs" element={<EditVariableTabs />} />
-        <Route path="/PaymentOptions" element={<PaymentOptions />} />
-       <Route path="/smartInventory" element={<SmartInventory />} />
-       <Route path="/purchaseOrders" element={<PurchaseOrders />} />
-       <Route path="/purchaseOrders/:id" element={<OrderDetail />} />
-       <Route path="/createOrder" element={<CreateOrder />} />
-       <Route path="/providers" element={<Providers />} />
-
-      </Routes>
+        {/* <MenuDes /> */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                bagItems={bagItems}
+                addToBag={addToBag}
+                updateQuantity={updateQuantity}
+                clearBag={clearBag}
+                removeFromBag={removeFromBag}
+              />
+            }
+          />
+          <Route path="/createProduct" element={<CreateProduct />} />
+          <Route path="/inventario" element={<Inventario />} />
+          <Route path="/editVariant" element={<EditVariant />} />
+          <Route path="/EditVariableTabs" element={<EditVariableTabs />} />
+          <Route path="/PaymentOptions" element={<PaymentOptions />} />
+          <Route path="/smartInventory" element={<SmartInventory />} />
+          <Route path="/purchaseOrders" element={<PurchaseOrders />} />
+          <Route path="/purchaseOrders/:id" element={<OrderDetail />} />
+          <Route path="/createOrder" element={<CreateOrder />} />
+          <Route path="/providers" element={<Providers />} />
+        </Routes>
       </ErrorBoundary>
     </Router>
   );

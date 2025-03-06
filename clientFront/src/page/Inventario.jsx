@@ -33,8 +33,9 @@ const fetchProducts = async (
   }
 };
 
-const fetchCategories = async (setCategories, setError) => {
+const fetchCategories = async (setCategories, setError, setLoading) => {
   try {
+    setLoading(true);
     const response = await fetch(
       "https://express-app-dep.onrender.com/api/categories",
       {
@@ -52,18 +53,21 @@ const fetchCategories = async (setCategories, setError) => {
     setCategories(data);
   } catch (err) {
     setError(err.message);
+  } finally {
+    setLoading(false);
   }
 };
 
 const useCategories = () => {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchCategories(setCategories, setError);
+    fetchCategories(setCategories, setError, setLoading);
   }, []);
 
-  return { categories, error };
+  return { categories, loading, error };
 };
 
 const useProducts = (categoryId) => {
@@ -72,7 +76,6 @@ const useProducts = (categoryId) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("productos");
     fetchProducts(setProducts, setError, setLoading, categoryId);
   }, [categoryId]);
 
@@ -82,8 +85,8 @@ const useProducts = (categoryId) => {
 export default function Inventario() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const { categories } = useCategories();
-  const { products, loading, error } = useProducts(selectedCategory);
+  const { categories, loading: categoriesLoading } = useCategories();
+  const { products, loading: productsLoading } = useProducts(selectedCategory);
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
@@ -143,38 +146,42 @@ export default function Inventario() {
         </div>
       </div>
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Artículo</th>
-            <th>Categoría</th>
-            <th>Existencia</th>
-            <th>Precio</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((item) => (
-            <tr key={item.documentId}>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>{item.name}</td>
-              <td>{item.category.name}</td>
-              <td>{item.stock}</td>
-              <td>${item.price}</td>
-              <td>
-                <FaEdit
-                  className={styles.editIcon}
-                  onClick={() => handleEdit(item.documentId)}
-                  title="Editar artículo"
-                />
-              </td>
+      {categoriesLoading || productsLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Artículo</th>
+              <th>Categoría</th>
+              <th>Existencia</th>
+              <th>Precio</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {products.map((item) => (
+              <tr key={item.documentId}>
+                <td>
+                  <input type="checkbox" />
+                </td>
+                <td>{item.name}</td>
+                <td>{item.category.name}</td>
+                <td>{item.stock}</td>
+                <td>${item.price}</td>
+                <td>
+                  <FaEdit
+                    className={styles.editIcon}
+                    onClick={() => handleEdit(item.documentId)}
+                    title="Editar artículo"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

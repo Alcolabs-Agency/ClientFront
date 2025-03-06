@@ -1,6 +1,6 @@
 import ProductList from "../components/ProductList";
 import ShoppingBag from "../components/ShoppingBag";
-import NavBar from "../components/NavBar";
+// import NavBar from "../components/NavBar";
 
 import { useState } from "react";
 import styles from "./Home.module.css";
@@ -31,8 +31,10 @@ export default function Home() {
       }
     });
   };
+
   return (
     <div className={styles.container}>
+      {/* <NavBar /> */}
       <ProductList addToBag={addToBag} />
       <ShoppingBag bagItems={bagItems} updateQuantity={updateQuantity} />
     </div>
