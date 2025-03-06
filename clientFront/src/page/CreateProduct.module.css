@@ -2,16 +2,13 @@
   display: flex;
   border-radius: 4px;
   align-items: center;
-  margin-top: 30px;
   width: 100vw;
   flex-direction: column;
-  height: 90vh;
 }
 .containerbuttons {
   display: flex;
   justify-content: space-between;
   width: 80%;
-  margin-bottom: 20px;
 }
 
 .containerbuttons button {

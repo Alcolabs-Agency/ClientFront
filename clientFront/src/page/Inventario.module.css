@@ -8,6 +8,7 @@
   align-items: end;
   justify-content: flex-start;
 }
+
 .header {
   display: flex;
   flex-direction: column;
@@ -37,6 +38,7 @@
   padding: 5px;
   border-radius: 50%;
 }
+
 .inventoryHeader {
   display: flex;
   align-items: center;
@@ -93,14 +95,15 @@
 
 .createButton {
   padding: 8px 16px;
-  background-color: #e1e1dd;
+  background-color: black;
   margin-right: 20px;
-  color: rgb(0, 0, 0);
+  color: white;
   font-weight: bold;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  text-decoration: none;
 }
 
 .searchInput {
@@ -119,6 +122,15 @@
   background-color: #ffffff00;
 }
 
+td:nth-child(2){
+  width: 60%;
+}
+
+
+th:first-child{
+
+  color: transparent;
+}
 th,
 td {
   padding: 12px;
@@ -126,6 +138,7 @@ td {
   text-align: left;
   font-size: 14px;
   color: #000000;
+  border: none;
 }
 
 th {

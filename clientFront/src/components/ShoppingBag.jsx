@@ -1,12 +1,53 @@
 import styles from "./ShoppingBag.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import PropTypes from "prop-types";
 
 function ShoppingBag({ bagItems, updateQuantity }) {
+
+export default function ShoppingBag({ bagItems, updateQuantity }) {
+  const navigate = useNavigate()
+  async function validateStock(bagItems) {
+    const productsToValidate = bagItems.map((item) => ({
+      documentId: item.documentId,
+      quantity: item.quantity
+    }));
+    try {
+      const response = await fetch("https://express-app-dep.onrender.com/api/products/validate",
+        {
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json',
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQwMDAyNTU1LCJleHAiOjE3NDI1OTQ1NTV9.o33Izh2SHogoF_TtvFZ16s-QHEWTNk9KbdG4iEpRFx8"
+          },
+          body: JSON.stringify({products: productsToValidate})
+        }
+      )
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error)
+      }
+      const data = await response.json()
+      return data
+    } catch (error) {
+      throw new Error(error.message || "Error en la petición");
+    }
+  }
+
   const totalPrice = bagItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  async function handlePayClick () {
+    try {
+      await validateStock(bagItems)
+      navigate("/PaymentOptions", {state: {bagItems, totalPrice}})
+    } catch (error) {
+      alert(error)
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -67,10 +108,13 @@ function ShoppingBag({ bagItems, updateQuantity }) {
             </div>
           </div>
           <div>
-            <Link className={styles.linksPay}>
+            <button 
+              className={styles.linksPay}
+              onClick={handlePayClick}
+            >
               {" "}
               Pay $ ( {totalPrice.toFixed(2)}){" "}
-            </Link>
+            </button>
           </div>
         </div>
       )}
